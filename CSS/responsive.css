@@ -1,74 +1,81 @@
-/* Rendre le site responsive */
+/* Responsive design */
+
+/* Écrans larges : ≥ 1200px */
+@media (min-width: 1200px) {
+    body {
+        font-size: 1.3rem; /* Taille générale augmentée */
+    }
+
+    section {
+        max-width: 1200px; /* Limite la largeur de la section */
+        padding: 4rem; /* Plus d'espace autour des éléments */
+    }
+
+    h1 {
+        font-size: 4rem; /* Texte principal plus grand */
+    }
+
+    h2 {
+        font-size: 2.5rem; /* Sous-titre plus grand */
+    }
+
+    #task-input, #task-date {
+        font-size: 1.2rem; /* Agrandit les champs */
+        padding: 1rem; /* Plus d'espace interne */
+    }
+
+    button {
+        font-size: 1.2rem; /* Boutons plus grands */
+        padding: 1rem 2rem;
+    }
+
+    #task-list li {
+        font-size: 1.1rem; /* Texte des tâches plus grand */
+        padding: 1.5rem; /* Plus de padding */
+    }
+}
+
+/* Écrans moyens : ≤ 768px */
 @media (max-width: 768px) {
     header, footer {
-      padding: 1rem;
+        padding: 1rem; /* Réduit l'espace dans le header et le footer */
     }
-    
+
     section {
-      padding: 1.5rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      max-width: 90%; /* Réduit la largeur à 90% de l'écran */
-      min-height: 300px; /* Réduit la hauteur minimale */
+        padding: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 90%; /* Section adaptée à l'écran */
+        min-height: 300px; /* Réduit la hauteur minimale */
     }
-  
+
     #task-input {
-      width: 100%; /* L'input prend toute la largeur sur mobile */
-      margin-bottom: 1rem; /* Espacement en dessous */
+        width: 100%; /* Input prend toute la largeur */
+        margin-bottom: 1rem; /* Espacement en dessous */
     }
-  
+
     #add-task-btn {
-      width: 100%; /* Le bouton aussi */
+        width: 100%; /* Bouton étendu sur toute la largeur */
     }
-  
+
     ul#task-list {
-      padding-left: 0; /* Retire les marges inutiles */
+        padding-left: 0; /* Supprime les marges inutiles */
     }
-  }
 
-  @media (max-width: 768px) {
     #task-list li {
-      padding: 0.5rem; /* Réduit le padding des tâches */
-      font-size: 0.9rem; /* Réduit la taille du texte */
+        padding: 0.5rem; /* Réduit le padding des tâches */
+        font-size: 0.9rem; /* Texte plus petit */
     }
-  
+
     #task-list li button {
-      font-size: 0.8rem; /* Réduit la taille du texte des boutons */
-      padding: 0.4rem 0.8rem; /* Réduit la taille des boutons */
+        font-size: 0.8rem; /* Boutons plus petits */
+        padding: 0.4rem 0.8rem; /* Réduit le padding des boutons */
     }
-  }
+}
 
-  @media (min-width: 1200px) {
-    section {
-      max-width: 5000px; /* Augmente la largeur maximale */
-      padding: 4rem; /* Ajoute plus d'espace autour des éléments */
+/* Écrans très petits : ≤ 456px */
+@media (max-width: 456px) {
+    #filters button {
+        font-size: 0.8rem; /* Texte des filtres plus petit */
+        padding: 0.3rem 0.5rem; /* Réduit le padding des boutons */
     }
-  
-    h1 {
-      font-size: 4rem; /* Texte plus grand */
-    }
-  
-    h2 {
-      font-size: 2.5rem;
-    }
-  
-    #task-input, #task-date {
-      font-size: 1.2rem; /* Agrandit les champs */
-      padding: 1rem;
-    }
-  
-    button {
-      font-size: 1.2rem; /* Agrandit les boutons */
-      padding: 1rem 2rem;
-    }
-  
-    #task-list li {
-      font-size: 1.1rem; /* Texte des tâches plus grand */
-      padding: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    body {
-      font-size: 1.3rem; /* Taille générale augmentée pour les grands écrans */
-    }
-  }
+}

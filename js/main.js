@@ -1,27 +1,37 @@
+// ========================
 // Sélection des éléments
+// ========================
 const taskInput = document.getElementById("task-input");
 const addTaskBtn = document.getElementById("add-task-btn");
 const taskList = document.getElementById("task-list");
 const taskDateInput = document.getElementById("task-date");
+const toggleDarkModeBtn = document.getElementById("toggle-dark-mode");
+
+// ========================
+// Gestion des tâches
+// ========================
 
 // Ajouter une tâche
 addTaskBtn.addEventListener("click", () => {
   const taskText = taskInput.value.trim();
   const taskDate = taskDateInput.value;
+
   if (taskText === "") {
     showNotification("Veuillez entrer une tâche valide !");
     return;
   }
 
+  // Crée et ajoute la tâche
   createTask(taskText, false, taskDate);
 
+  // Réinitialise les champs
   taskInput.value = "";
   taskDateInput.value = "";
 
+  // Met à jour les compteurs, sauvegarde et notification
   updateCounter();
   saveTasks();
   toggleEmptyMessage();
-
   showNotification("Tâche ajoutée avec succès !");
 });
 
@@ -30,14 +40,14 @@ function createTask(taskText, completed = false, dueDate = "") {
   const taskItem = document.createElement("li");
   taskItem.innerHTML = `
     <div class="task-content">
-    <span class="task-text">${taskText}</span>
-    ${dueDate ? `<small class="due-date">Échéance : ${dueDate}</small>` : ""}
-  </div>
-  <div class="task-buttons">
-    <button class="complete-btn"><i class="fas fa-check"></i></button>
-    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-  </div>
-`;
+      <span class="task-text">${taskText}</span>
+      ${dueDate ? `<small class="due-date">Échéance : ${dueDate}</small>` : ""}
+    </div>
+    <div class="task-buttons">
+      <button class="complete-btn"><i class="fas fa-check"></i></button>
+      <button class="delete-btn"><i class="fas fa-trash"></i></button>
+    </div>
+  `;
 
   if (completed) {
     taskItem.classList.add("completed");
@@ -47,6 +57,7 @@ function createTask(taskText, completed = false, dueDate = "") {
     taskItem.classList.add("dark-mode");
   }
 
+  // Gestion des événements des boutons
   taskItem.querySelector(".complete-btn").addEventListener("click", () => {
     taskItem.classList.toggle("completed");
     updateCounter();
@@ -65,10 +76,13 @@ function createTask(taskText, completed = false, dueDate = "") {
     }, 300);
   });
 
+  // Ajoute la tâche à la liste
   taskList.appendChild(taskItem);
 }
 
-// Filtres des tâches
+// ========================
+// Gestion des filtres
+// ========================
 document.getElementById("filter-all").addEventListener("click", () => {
   document.querySelectorAll("#task-list li").forEach(task => {
     task.style.display = "flex";
@@ -87,7 +101,9 @@ document.getElementById("filter-pending").addEventListener("click", () => {
   });
 });
 
-// Fonction pour afficher une notification
+// ========================
+// Notifications
+// ========================
 function showNotification(message) {
   const notification = document.getElementById("notification");
   notification.textContent = message;
@@ -98,7 +114,9 @@ function showNotification(message) {
   }, 2000);
 }
 
-// Mettre à jour le compteur
+// ========================
+// Compteurs et messages
+// ========================
 function updateCounter() {
   const totalTasks = document.querySelectorAll("#task-list li").length;
   const completedTasks = document.querySelectorAll("#task-list li.completed").length;
@@ -107,12 +125,20 @@ function updateCounter() {
   document.getElementById("completed-tasks").textContent = completedTasks;
 }
 
-// Sauvegarder les tâches dans LocalStorage
+function toggleEmptyMessage() {
+  const emptyMessage = document.getElementById("empty-message");
+  const hasTasks = document.querySelectorAll("#task-list li").length > 0;
+  emptyMessage.style.display = hasTasks ? "none" : "block";
+}
+
+// ========================
+// Sauvegarde et chargement
+// ========================
 function saveTasks() {
   const tasks = [];
   document.querySelectorAll("#task-list li").forEach(taskItem => {
     tasks.push({
-      text: taskItem.querySelector("span").textContent,
+      text: taskItem.querySelector(".task-text").textContent,
       completed: taskItem.classList.contains("completed"),
       dueDate: taskItem.querySelector(".due-date")?.textContent.replace("Échéance : ", "") || ""
     });
@@ -120,7 +146,6 @@ function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Charger les tâches depuis LocalStorage
 function loadTasks() {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.forEach(task => {
@@ -131,21 +156,10 @@ function loadTasks() {
   toggleEmptyMessage();
 }
 
-// Afficher ou masquer le message si la liste est vide
-function toggleEmptyMessage() {
-  const emptyMessage = document.getElementById("empty-message");
-  const hasTasks = document.querySelectorAll("#task-list li").length > 0;
-  emptyMessage.style.display = hasTasks ? "none" : "block";
-}
-
-// Charger les tâches au démarrage
-window.addEventListener("DOMContentLoaded", loadTasks);
-
-
-const toggleDarkModeBtn = document.getElementById("toggle-dark-mode");
-
+// ========================
+// Mode sombre
+// ========================
 toggleDarkModeBtn.addEventListener("click", () => {
-  // Activer ou désactiver le mode sombre
   document.body.classList.toggle("dark-mode");
   document.querySelector("header").classList.toggle("dark-mode");
   document.querySelector("footer").classList.toggle("dark-mode");
@@ -153,7 +167,7 @@ toggleDarkModeBtn.addEventListener("click", () => {
   document.querySelectorAll("#task-list li").forEach(task => task.classList.toggle("dark-mode"));
   document.querySelectorAll("#filters button").forEach(filter => filter.classList.toggle("dark-mode"));
 
-  // Changer l'icône
+  // Change l'icône
   const icon = toggleDarkModeBtn.querySelector("i");
   if (document.body.classList.contains("dark-mode")) {
     icon.classList.remove("fa-moon");
@@ -163,12 +177,11 @@ toggleDarkModeBtn.addEventListener("click", () => {
     icon.classList.add("fa-moon");
   }
 
-  // Sauvegarder la préférence dans le LocalStorage
+  // Sauvegarde la préférence
   const isDarkMode = document.body.classList.contains("dark-mode");
   localStorage.setItem("darkMode", isDarkMode);
 });
 
-// Charger la préférence du mode sombre au démarrage
 window.addEventListener("DOMContentLoaded", () => {
   const isDarkMode = JSON.parse(localStorage.getItem("darkMode"));
   const icon = toggleDarkModeBtn.querySelector("i");
@@ -181,8 +194,12 @@ window.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("#task-list li").forEach(task => task.classList.add("dark-mode"));
     document.querySelectorAll("#filters button").forEach(filter => filter.classList.add("dark-mode"));
 
-    // Icône soleil pour mode sombre
     icon.classList.remove("fa-moon");
     icon.classList.add("fa-sun");
   }
 });
+
+// ========================
+// Chargement initial
+// ========================
+window.addEventListener("DOMContentLoaded", loadTasks);

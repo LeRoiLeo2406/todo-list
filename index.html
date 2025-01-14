@@ -4,60 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ma To-Do List</title>
+  
+  <!-- Feuilles de style -->
   <link rel="stylesheet" href="CSS/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
 </head>
 <body>
-  <!-- Header -->
+  <!-- ====================
+       Header
+  ==================== -->
   <header>
     <h1>Bienvenue sur ma To-Do List</h1>
-    <p>Gérez vos tâches simplement !</p>
+    <p>Gérez vos tâches simplement !</p>
     <button id="toggle-dark-mode">
-        <i class="fas fa-moon"></i>
+      <i class="fas fa-moon"></i>
     </button>
   </header>
 
-  <!-- Main Content -->
+  <!-- ====================
+       Main Content
+  ==================== -->
   <main>
     <section>
+      <!-- Titre principal -->
       <h2>Mes Tâches</h2>
+      
+      <!-- Compteur des tâches -->
       <div id="counter">
         <p>Total : <span id="total-tasks">0</span></p>
         <p>Terminées : <span id="completed-tasks">0</span></p>
       </div>
+
+      <!-- Conteneur de la To-Do List -->
       <div id="todo-container">
+        
+        <!-- Filtres des tâches -->
         <div id="filters">
-            <button id="filter-all">Toutes</button>
-            <button id="filter-completed">Terminées</button>
-            <button id="filter-pending">En cours</button>
-          </div>
+          <button id="filter-all">Toutes</button>
+          <button id="filter-completed">Terminées</button>
+          <button id="filter-pending">En cours</button>
+        </div>
+        
+        <!-- Champ d'ajout de tâche -->
         <input type="text" id="task-input" placeholder="Ajoutez une tâche...">
         <button id="add-task-btn">
-            <i class="fas fa-plus"></i> Ajouter
+          <i class="fas fa-plus"></i> Ajouter
         </button>
         <input type="date" id="task-date">
 
+        <!-- Message lorsqu'il n'y a aucune tâche -->
         <p id="empty-message">Aucune tâche pour le moment. Ajoutez-en une !</p>
 
-     <!-- Liste des tâches -->
-     <ul id="task-list">
-       
-      </ul>
-        
-        <!-- Ici, on ajoutera notre To-Do List plus tard -->
+        <!-- Liste des tâches -->
+        <ul id="task-list"></ul>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- ====================
+       Footer
+  ==================== -->
   <footer>
     <p>@ 2025 - Créé avec 💖 par Léo Beaussier</p>
   </footer>
 
-  <script src="js/main.js"></script>
+  <!-- ====================
+       Notifications
+  ==================== -->
   <div id="notification"></div>
 
+  <!-- ====================
+       Scripts
+  ==================== -->
+  <script src="js/main.js"></script>
 </body>
 </html>
