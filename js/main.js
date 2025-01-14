@@ -29,14 +29,22 @@ addTaskBtn.addEventListener("click", () => {
 function createTask(taskText, completed = false, dueDate = "") {
   const taskItem = document.createElement("li");
   taskItem.innerHTML = `
-    <span>${taskText}</span>
+    <div class="task-content">
+    <span class="task-text">${taskText}</span>
     ${dueDate ? `<small class="due-date">Échéance : ${dueDate}</small>` : ""}
+  </div>
+  <div class="task-buttons">
     <button class="complete-btn"><i class="fas fa-check"></i></button>
     <button class="delete-btn"><i class="fas fa-trash"></i></button>
-  `;
+  </div>
+`;
 
   if (completed) {
     taskItem.classList.add("completed");
+  }
+
+  if (document.body.classList.contains("dark-mode")) {
+    taskItem.classList.add("dark-mode");
   }
 
   taskItem.querySelector(".complete-btn").addEventListener("click", () => {

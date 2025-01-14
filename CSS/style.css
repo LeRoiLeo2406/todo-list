@@ -121,6 +121,9 @@
     opacity: 0;
     transform: translateY(-10px);
     animation: fadeIn 0.5s forwards;
+    background-color: var(--neutral-color);
+    color: var(--text-dark);
+    
   }
   
   /* Définition de l'animation */
@@ -281,6 +284,10 @@
     cursor: pointer;
     color: var(--btn-text);
     transition: background-color 0.3s ease, transform 0.2s ease;
+    width: calc(100% / 3 - 0.5rem); /* Largeur fixe pour chaque bouton */
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    text-overflow: ellipsis; /* Coupe le texte si nécessaire */
+    overflow: hidden; /* Masque le texte débordant */
   }
   
   /* Bouton "Toutes" */
@@ -382,4 +389,51 @@ body.dark-mode {
   
   body.dark-mode #toggle-dark-mode {
     color: #f1c40f; /* Couleur jaune pour l'icône en mode sombre */
+  }
+
+  body.dark-mode #task-list li {
+    background-color: #4d4d4d; /* Fond sombre */
+    color: #ecf0f1; /* Texte clair */
+  }
+
+  #task-date {
+    appearance: none; /* Supprime le style par défaut des navigateurs */
+    -webkit-appearance: none; /* Spécifique pour Safari */
+    border: 2px solid var(--btn-bg);
+    border-radius: 5px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    background-color: white;
+    color: var(--text-dark);
+    width: 100%; /* Pour s'assurer qu'il occupe toute la largeur disponible */
+  }
+  
+  #task-date:focus {
+    outline: none;
+    border-color: var(--btn-hover); /* Couleur d'accentuation au focus */
+  }
+
+  #task-list li {
+    display: flex;
+    justify-content: space-between; /* Assure l'espacement entre le contenu et les boutons */
+    align-items: center;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background-color: var(--neutral-color);
+    border-radius: 5px;
+  }
+  
+  .task-content {
+    display: flex;
+    flex-direction: column; /* Affiche le texte et la date sur deux lignes */
+    flex: 1; /* Occupe tout l'espace disponible à gauche */
+  }
+  
+  .task-buttons {
+    display: flex;
+    gap: 0.5rem; /* Ajoute un espace entre les boutons */
+  }
+  
+  .task-buttons button {
+    flex-shrink: 0; /* Empêche les boutons de se réduire */
   }
